@@ -48,6 +48,7 @@ public class PhoneBook {
             }
         }
 
+        scanner.close();
         System.out.println("Have a nice day...");
     }
 }

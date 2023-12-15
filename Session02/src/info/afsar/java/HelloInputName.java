@@ -9,5 +9,7 @@ public class HelloInputName {
         System.out.println("Please enter your name:");
         String userInput = scanner.nextLine();
         System.out.println("Hello dear " + userInput);
+
+        scanner.close();
     }
 }

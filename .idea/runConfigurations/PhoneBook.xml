@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="info.afsar.app.PhoneBook" type="Application" factoryName="Application" nameIsGenerated="true">
+  <configuration default="false" name="PhoneBook" type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="info.afsar.app.PhoneBook" />
     <module name="Session02" />
     <extension name="coverage">

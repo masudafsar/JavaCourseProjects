@@ -1,4 +1,6 @@
-package info.afsar.java;
+package info.afsar.app;
+
+import info.afsar.app.model.PhoneBookEntry;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -35,7 +37,7 @@ public class PhoneBook {
                     break;
                 case "l":
                     System.out.println("----- List of entries -----");
-                    for (PhoneBookEntry entry2: entries) {
+                    for (PhoneBookEntry entry2 : entries) {
                         System.out.println(entry2.getTitle() + "\t\t\t(" + entry2.getPhone() + ")");
                         System.out.println("--------------------");
                     }

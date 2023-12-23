@@ -1,5 +1,3 @@
-package info.afsar.java;
-
 import java.util.Scanner;
 
 public class HelloInputName {

@@ -1,4 +1,4 @@
-package info.afsar.app.model;
+package model;
 
 public class PhoneBookEntry {
     private String title;

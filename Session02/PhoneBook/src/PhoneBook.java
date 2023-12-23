@@ -1,6 +1,4 @@
-package info.afsar.app;
-
-import info.afsar.app.model.PhoneBookEntry;
+import model.PhoneBookEntry;
 
 import java.util.ArrayList;
 import java.util.Scanner;

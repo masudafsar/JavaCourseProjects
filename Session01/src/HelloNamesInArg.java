@@ -1,5 +1,3 @@
-package info.afsar.java;
-
 public class HelloNamesInArg {
     public static void main(String[] args) {
         System.out.println("Welcome to Hello Names application.");

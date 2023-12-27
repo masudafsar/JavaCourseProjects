@@ -1,4 +1,6 @@
-import model.PhoneBookEntry;
+package PhoneBook;
+
+import PhoneBook.model.PhoneBookEntry;
 
 import java.util.ArrayList;
 import java.util.Scanner;

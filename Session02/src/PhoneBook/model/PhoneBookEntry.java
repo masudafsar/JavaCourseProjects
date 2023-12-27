@@ -1,4 +1,4 @@
-package model;
+package PhoneBook.model;
 
 public class PhoneBookEntry {
     private String title;

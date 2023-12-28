@@ -1,14 +1,14 @@
 package PhoneBook;
 
-import PhoneBook.model.PhoneBookEntry;
-import PhoneBook.model.PhoneBookPersonalEntry;
+import PhoneBook.model.Entry;
+import PhoneBook.model.PersonalEntry;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class PhoneBook {
     public static void main(String[] args) {
-        var entries = new ArrayList<PhoneBookEntry>();
+        var entries = new ArrayList<Entry>();
         var scanner = new Scanner(System.in);
 
         runPhoneBookManager(entries, scanner);
@@ -16,7 +16,7 @@ public class PhoneBook {
         scanner.close();
     }
 
-    private static void runPhoneBookManager(ArrayList<PhoneBookEntry> entries, Scanner scanner) {
+    private static void runPhoneBookManager(ArrayList<Entry> entries, Scanner scanner) {
         System.out.println("Welcome to Phone Book application.");
 
         String command;
@@ -50,22 +50,22 @@ public class PhoneBook {
         return scanner.nextLine();
     }
 
-    private static void showAllEntries(ArrayList<PhoneBookEntry> entries) {
+    private static void showAllEntries(ArrayList<Entry> entries) {
         System.out.println("\n----- List of entries -----");
-        for (PhoneBookEntry entry : entries) {
+        for (Entry entry : entries) {
             System.out.println(entry);
             System.out.println("---------------------------");
         }
     }
 
-    private static void addContactEntry(ArrayList<PhoneBookEntry> entries, Scanner scanner) {
+    private static void addContactEntry(ArrayList<Entry> entries, Scanner scanner) {
         System.out.println("\n------ Add new entry ------");
         System.out.println("Enter title of contact:");
         var title = scanner.nextLine();
         System.out.println("Enter phone of contact:");
         var phone = scanner.nextLine();
 
-        var entry = new PhoneBookPersonalEntry(title, phone);
+        var entry = new PersonalEntry(title, phone);
         System.out.println("Added:\n" + entry);
         entries.add(entry);
     }

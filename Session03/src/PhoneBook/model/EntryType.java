@@ -1,6 +1,6 @@
 package PhoneBook.model;
 
-public enum PhoneBookEntryType {
+public enum EntryType {
     PERSONAL,
     BUSINESS,
 }

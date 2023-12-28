@@ -1,6 +1,7 @@
 package PhoneBook;
 
 import PhoneBook.model.PhoneBookEntry;
+import PhoneBook.model.PhoneBookPersonalEntry;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -58,17 +59,14 @@ public class PhoneBook {
     }
 
     private static void addContactEntry(ArrayList<PhoneBookEntry> entries, Scanner scanner) {
-        var entry = new PhoneBookEntry();
         System.out.println("\n------ Add new entry ------");
-
         System.out.println("Enter title of contact:");
-        entry.setTitle(scanner.nextLine());
-
+        var title = scanner.nextLine();
         System.out.println("Enter phone of contact:");
-        entry.setPhone(scanner.nextLine());
+        var phone = scanner.nextLine();
 
+        var entry = new PhoneBookPersonalEntry(title, phone);
         System.out.println("Added:\n" + entry);
-
         entries.add(entry);
     }
 }

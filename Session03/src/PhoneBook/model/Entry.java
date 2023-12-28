@@ -2,7 +2,7 @@ package PhoneBook.model;
 
 import PhoneBook.utils.WordUtils;
 
-public class Entry {
+public abstract class Entry {
     private String name;
     private String phone;
 
@@ -15,13 +15,7 @@ public class Entry {
     }
 
     @Override
-    public String toString() {
-        var str = new StringBuilder();
-        str.append(String.format("Name: %s\n", this.getName()));
-        str.append(String.format("Phone: %s\n", this.getPhone()));
-        str.append(String.format("Type: %s\n", this.getType()));
-        return str.toString();
-    }
+    abstract public String toString();
 
     public void setName(String name) {
         this.name = WordUtils.convertToTitleCase(name);

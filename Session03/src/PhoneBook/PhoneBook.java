@@ -52,14 +52,14 @@ public class PhoneBook {
     private static void showAllEntries(ArrayList<PhoneBookEntry> entries) {
         System.out.println("\n----- List of entries -----");
         for (PhoneBookEntry entry : entries) {
-            System.out.println(entry.getTitle() + "\t\t\t(" + entry.getPhone() + ")");
+            System.out.println(entry);
             System.out.println("---------------------------");
         }
     }
 
     private static void addContactEntry(ArrayList<PhoneBookEntry> entries, Scanner scanner) {
         var entry = new PhoneBookEntry();
-        System.out.println("\n----- Add new entry -----");
+        System.out.println("\n------ Add new entry ------");
 
         System.out.println("Enter title of contact:");
         entry.setTitle(scanner.nextLine());
@@ -67,7 +67,7 @@ public class PhoneBook {
         System.out.println("Enter phone of contact:");
         entry.setPhone(scanner.nextLine());
 
-        System.out.println("Added: " + entry.getTitle() + "\t\t\t(" + entry.getPhone() + ")");
+        System.out.println("Added:\n" + entry);
 
         entries.add(entry);
     }

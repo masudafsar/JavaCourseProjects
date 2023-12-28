@@ -17,6 +17,8 @@ public abstract class Entry {
     @Override
     abstract public String toString();
 
+    abstract public boolean isContained(String str);
+
     public void setName(String name) {
         this.name = WordUtils.convertToTitleCase(name);
     }

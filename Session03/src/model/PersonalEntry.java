@@ -18,6 +18,12 @@ public class PersonalEntry extends Entry {
                 String.format("Type: %s", this.getType());
     }
 
+    @Override
+    public boolean isContained(String str) {
+        str = str.toLowerCase();
+        return this.getName().toLowerCase().contains(str) || this.getFamily().toLowerCase().contains(str) || this.getPhone().toLowerCase().contains(str);
+    }
+
     public String getFamily() {
         return family;
     }

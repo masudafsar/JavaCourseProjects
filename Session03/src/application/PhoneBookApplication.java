@@ -31,6 +31,9 @@ public class PhoneBookApplication {
                 case "l":
                     this.showAllEntries();
                     break;
+                case "s":
+                    this.searchInEntries();
+                    break;
                 default:
                     System.out.println("Invalid command, try again.");
                     break;
@@ -46,6 +49,7 @@ public class PhoneBookApplication {
         System.out.println("valid commands:");
         System.out.println(" - a        Add new entry");
         System.out.println(" - l        List of all entries");
+        System.out.println(" - s        Search in entries");
         System.out.println(" - q        Quit");
         System.out.print("$> ");
 
@@ -129,6 +133,27 @@ public class PhoneBookApplication {
         }
         System.out.println("\n----- List of entries -----");
         for (Entry entry : this.phoneBookService.getEntries()) {
+            System.out.println(entry);
+            System.out.println("---------------------------");
+        }
+    }
+
+    private void searchInEntries() {
+        System.out.println("\n----- Search in entries -----");
+        System.out.println("Enter query:");
+        System.out.print("$> ");
+        var query = this.scanner.nextLine();
+
+        var filteredEntries = this.phoneBookService.filterEntries(query);
+
+        if (filteredEntries.isEmpty()) {
+            System.out.println("---------------------------");
+            System.out.println("-   Not found any entry   -");
+            System.out.println("---------------------------");
+            return;
+        }
+        System.out.println("\n----- Filtered entries -----");
+        for (Entry entry : filteredEntries) {
             System.out.println(entry);
             System.out.println("---------------------------");
         }

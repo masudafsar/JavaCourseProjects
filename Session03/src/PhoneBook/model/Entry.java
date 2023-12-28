@@ -35,10 +35,6 @@ public class Entry {
         this.phone = phone;
     }
 
-    public void setPhone(int phone) {
-        this.phone = "0" + phone;
-    }
-
     public String getPhone() {
         return phone;
     }

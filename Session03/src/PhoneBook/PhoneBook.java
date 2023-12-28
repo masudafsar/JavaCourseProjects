@@ -1,6 +1,8 @@
 package PhoneBook;
 
+import PhoneBook.model.BusinessEntry;
 import PhoneBook.model.Entry;
+import PhoneBook.model.EntryType;
 import PhoneBook.model.PersonalEntry;
 
 import java.util.ArrayList;
@@ -19,9 +21,9 @@ public class PhoneBook {
     private static void runPhoneBookManager(ArrayList<Entry> entries, Scanner scanner) {
         System.out.println("Welcome to Phone Book application.");
 
-        String command;
-        do {
-            command = getCommand(scanner);
+        mainLoop:
+        while (true) {
+            String command = getCommand(scanner);
 
             switch (command) {
                 case "a":
@@ -30,11 +32,13 @@ public class PhoneBook {
                 case "l":
                     showAllEntries(entries);
                     break;
+                case "q":
+                    break mainLoop;
                 default:
                     System.out.println("Invalid command, try again.");
                     break;
             }
-        } while (!command.equals("q"));
+        }
 
         System.out.println("Have a nice day...");
     }
@@ -59,14 +63,80 @@ public class PhoneBook {
     }
 
     private static void addContactEntry(ArrayList<Entry> entries, Scanner scanner) {
-        System.out.println("\n------ Add new entry ------");
-        System.out.println("Enter title of contact:");
-        var title = scanner.nextLine();
-        System.out.println("Enter phone of contact:");
+        System.out.println("------ Add new entry ------");
+        var type = getContactType(scanner);
+        if (type == null) return; // exit from adding contact
+
+        switch (type) {
+            case PERSONAL -> {
+                addPersonalContactEntry(entries, scanner);
+            }
+            case BUSINESS -> {
+                addBusinessContactEntry(entries, scanner);
+            }
+        }
+    }
+
+    private static void addBusinessContactEntry(ArrayList<Entry> entries, Scanner scanner) {
+        System.out.println("Enter name:");
+        System.out.print("$> ");
+        var name = scanner.nextLine();
+
+        System.out.println("Enter phone number:");
+        System.out.print("$> ");
         var phone = scanner.nextLine();
 
-        var entry = new PersonalEntry(title, phone);
-        System.out.println("Added:\n" + entry);
+        System.out.println("Enter fax number:");
+        System.out.print("$> ");
+        var fax = scanner.nextLine();
+
+        var entry = new BusinessEntry(name, phone);
+        entry.setFax(fax);
         entries.add(entry);
+        System.out.println("Added:\n" + entry);
+    }
+
+    private static void addPersonalContactEntry(ArrayList<Entry> entries, Scanner scanner) {
+        System.out.println("Enter name:");
+        System.out.print("$> ");
+        var name = scanner.nextLine();
+
+        System.out.println("Enter family:");
+        System.out.print("$> ");
+        var family = scanner.nextLine();
+
+        System.out.println("Enter phone number:");
+        System.out.print("$> ");
+        var phone = scanner.nextLine();
+
+        var entry = new PersonalEntry(name, phone);
+        entry.setFamily(family);
+        entries.add(entry);
+        System.out.println("Added:\n" + entry);
+    }
+
+    private static EntryType getContactType(Scanner scanner) {
+        while (true) {
+            System.out.println("Please enter type of contact type:");
+            System.out.println(" - p        Personal type");
+            System.out.println(" - b        Business type");
+            System.out.println(" - x        Exit from contact adding.");
+            System.out.print("$> ");
+
+            String command = scanner.nextLine();
+
+            switch (command) {
+                case "p" -> {
+                    return EntryType.PERSONAL;
+                }
+                case "b" -> {
+                    return EntryType.BUSINESS;
+                }
+                case "x" -> {
+                    return null;
+                }
+                default -> System.out.println("Invalid command, try again.");
+            }
+        }
     }
 }

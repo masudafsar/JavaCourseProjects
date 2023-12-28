@@ -1,10 +1,8 @@
-package PhoneBook;
-
-import PhoneBook.service.PhoneBookService;
+import service.PhoneBookService;
 
 import java.util.Scanner;
 
-public class PhoneBookMain {
+public class ApplicationRunner {
     public static void main(String[] args) {
         var scanner = new Scanner(System.in);
 

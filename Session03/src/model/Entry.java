@@ -1,6 +1,6 @@
-package PhoneBook.model;
+package model;
 
-import PhoneBook.utils.WordUtils;
+import utils.WordUtils;
 
 public abstract class Entry {
     private String name;

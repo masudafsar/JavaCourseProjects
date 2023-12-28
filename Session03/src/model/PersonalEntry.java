@@ -1,6 +1,6 @@
-package PhoneBook.model;
+package model;
 
-import PhoneBook.utils.WordUtils;
+import utils.WordUtils;
 
 public class PersonalEntry extends Entry {
     private String family;

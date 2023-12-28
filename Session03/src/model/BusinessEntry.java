@@ -1,4 +1,4 @@
-package PhoneBook.model;
+package model;
 
 public class BusinessEntry extends Entry {
     private String fax;

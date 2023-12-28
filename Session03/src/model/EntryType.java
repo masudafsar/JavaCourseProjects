@@ -1,4 +1,4 @@
-package PhoneBook.model;
+package model;
 
 public enum EntryType {
     PERSONAL,

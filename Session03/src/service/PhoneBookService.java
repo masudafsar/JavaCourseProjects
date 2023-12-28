@@ -1,9 +1,9 @@
-package PhoneBook.service;
+package service;
 
-import PhoneBook.model.BusinessEntry;
-import PhoneBook.model.Entry;
-import PhoneBook.model.EntryType;
-import PhoneBook.model.PersonalEntry;
+import model.BusinessEntry;
+import model.Entry;
+import model.EntryType;
+import model.PersonalEntry;
 
 import java.util.ArrayList;
 import java.util.Scanner;

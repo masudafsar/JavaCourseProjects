@@ -12,7 +12,8 @@ public class PersonalEntry extends Entry {
 
     @Override
     public String toString() {
-        return String.format("Name: %s\n", this.getName()) +
+        return String.format("Id: %s\n", this.getId()) +
+                String.format("Name: %s\n", this.getName()) +
                 String.format("Family: %s\n", this.getFamily()) +
                 String.format("Phone: %s\n", this.getPhone()) +
                 String.format("Type: %s", this.getType());

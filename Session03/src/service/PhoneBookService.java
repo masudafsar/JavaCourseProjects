@@ -5,7 +5,6 @@ import model.Entry;
 import model.PersonalEntry;
 
 import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 public class PhoneBookService {
     private final ArrayList<Entry> entries;

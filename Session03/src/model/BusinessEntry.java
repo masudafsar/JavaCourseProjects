@@ -3,8 +3,9 @@ package model;
 public class BusinessEntry extends Entry {
     private String fax;
 
-    public BusinessEntry(String name, String phone) {
+    public BusinessEntry(String name, String phone, String fax) {
         super(name, phone, EntryType.BUSINESS);
+        this.setFax(fax);
     }
 
     @Override

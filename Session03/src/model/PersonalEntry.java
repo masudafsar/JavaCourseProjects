@@ -5,8 +5,9 @@ import utils.WordUtils;
 public class PersonalEntry extends Entry {
     private String family;
 
-    public PersonalEntry(String name, String phone) {
+    public PersonalEntry(String name, String family, String phone) {
         super(name, phone, EntryType.PERSONAL);
+        this.setFamily(family);
     }
 
     @Override

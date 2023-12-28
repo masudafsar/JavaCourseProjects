@@ -1,14 +1,8 @@
-import service.PhoneBookService;
-
-import java.util.Scanner;
+import application.PhoneBookApplication;
 
 public class ApplicationRunner {
     public static void main(String[] args) {
-        var scanner = new Scanner(System.in);
-
-        var phoneBook = new PhoneBookService(scanner);
+        var phoneBook = new PhoneBookApplication();
         phoneBook.run();
-
-        scanner.close();
     }
 }

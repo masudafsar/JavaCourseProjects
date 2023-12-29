@@ -1,33 +1,27 @@
 package model;
 
-public class BusinessEntry extends Entry {
-    private String fax;
+import java.util.ArrayList;
 
-    public BusinessEntry(String name, String phone, String fax) {
-        super(name, phone, EntryType.BUSINESS);
-        this.setFax(fax);
+public class BusinessEntry extends Entry {
+    private String website;
+
+    public BusinessEntry(String name, String website, ArrayList<Phone> phones) {
+        super(name, phones, EntryType.BUSINESS);
+        this.setWebsite(website);
     }
 
     @Override
     public String toString() {
-        return String.format("Id: %s\n", this.getId()) +
-                String.format("Name: %s\n", this.getName()) +
-                String.format("Phone: %s\n", this.getPhone()) +
-                String.format("Fax: %s\n", this.getFax()) +
-                String.format("Type: %s", this.getType());
+        return String.format("(%s) [%s]\n", this.getId(), this.getType()) +
+                String.format("%s (%s)\n", this.getName(), this.getWebsite()) +
+                this.toStringPhones();
     }
 
-    @Override
-    public boolean isContained(String str) {
-        str = str.toLowerCase();
-        return this.getName().toLowerCase().contains(str) || this.getPhone().toLowerCase().contains(str) || this.getFax().toLowerCase().contains(str);
+    public String getWebsite() {
+        return this.website;
     }
 
-    public String getFax() {
-        return fax;
-    }
-
-    public void setFax(String fax) {
-        this.fax = fax;
+    public void setWebsite(String website) {
+        this.website = website;
     }
 }

@@ -1,9 +1,9 @@
 package service;
 
-import model.BusinessEntry;
-import model.Entry;
-import model.PersonalEntry;
+import model.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -16,24 +16,33 @@ public class PhoneBookService {
         this.seedPhoneBook();
     }
 
-    public void seedPhoneBook(){
-        var entry = new PersonalEntry("john", "doe", "09123456789");
+    public void seedPhoneBook() {
+        Entry entry = new PersonalEntry("john", "doe", new ArrayList<>(Arrays.asList(
+                new Phone(PhoneType.HOME, "0213334567"),
+                new Phone(PhoneType.MOBILE, "09123456789")
+        )));
         this.entries.put(entry.getId(), entry);
 
-        entry = new PersonalEntry("jean", "doe", "09876543210");
+        entry = new PersonalEntry("jean", "doe",  new ArrayList<>(Arrays.asList(
+                new Phone(PhoneType.HOME, "01234567890"),
+                new Phone(PhoneType.MOBILE, "09876543210")
+        )));
         this.entries.put(entry.getId(), entry);
 
-        entry = new PersonalEntry("foo", "bar", "01122334455");
+        entry = new BusinessEntry("Apple", "www.apple.com",  new ArrayList<>(Arrays.asList(
+                new Phone(PhoneType.WORK, "+12345678900"),
+                new Phone(PhoneType.FAX, "+12345678900")
+        )));
         this.entries.put(entry.getId(), entry);
     }
 
-    public void appendPersonal(String name, String family, String phone) {
-        var entry = new PersonalEntry(name, family, phone);
+    public void appendPersonal(String name, String family, ArrayList<Phone> phones) {
+        var entry = new PersonalEntry(name, family, phones);
         this.entries.put(entry.getId(), entry);
     }
 
-    public void appendBusiness(String name, String phone, String fax) {
-        var entry = new BusinessEntry(name, phone, fax);
+    public void appendBusiness(String name, String website, ArrayList<Phone> phones) {
+        var entry = new BusinessEntry(name, website, phones);
         this.entries.put(entry.getId(), entry);
     }
 
@@ -51,18 +60,18 @@ public class PhoneBookService {
         return this.entries.get(id);
     }
 
-    public void editPersonal(int id, String name, String family, String phone) {
-        var entry = (PersonalEntry)this.entries.get(id);
+    public void editPersonal(int id, String name, String family, ArrayList<Phone> phones) {
+        var entry = (PersonalEntry) this.entries.get(id);
         entry.setName(name);
         entry.setFamily(family);
-        entry.setPhone(phone);
+        entry.setPhones(phones);
     }
 
-    public void editBusiness(int id, String name, String phone, String fax) {
-        var entry = (BusinessEntry)this.entries.get(id);
+    public void editBusiness(int id, String name, String website, ArrayList<Phone> phones) {
+        var entry = (BusinessEntry) this.entries.get(id);
         entry.setName(name);
-        entry.setPhone(phone);
-        entry.setFax(fax);
+        entry.setWebsite(website);
+        entry.setPhones(phones);
     }
 
     public void remove(int id) {

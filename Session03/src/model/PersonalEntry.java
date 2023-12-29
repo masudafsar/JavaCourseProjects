@@ -2,27 +2,21 @@ package model;
 
 import utils.WordUtils;
 
+import java.util.ArrayList;
+
 public class PersonalEntry extends Entry {
     private String family;
 
-    public PersonalEntry(String name, String family, String phone) {
-        super(name, phone, EntryType.PERSONAL);
+    public PersonalEntry(String name, String family, ArrayList<Phone> phones) {
+        super(name, phones, EntryType.PERSONAL);
         this.setFamily(family);
     }
 
     @Override
     public String toString() {
-        return String.format("Id: %s\n", this.getId()) +
-                String.format("Name: %s\n", this.getName()) +
-                String.format("Family: %s\n", this.getFamily()) +
-                String.format("Phone: %s\n", this.getPhone()) +
-                String.format("Type: %s", this.getType());
-    }
-
-    @Override
-    public boolean isContained(String str) {
-        str = str.toLowerCase();
-        return this.getName().toLowerCase().contains(str) || this.getFamily().toLowerCase().contains(str) || this.getPhone().toLowerCase().contains(str);
+        return String.format("(%s) [%s]\n", this.getId(), this.getType()) +
+                String.format("%s %s\n", this.getName(), this.getFamily()) +
+                this.toStringPhones();
     }
 
     public String getFamily() {

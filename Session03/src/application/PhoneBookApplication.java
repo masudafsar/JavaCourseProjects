@@ -1,11 +1,9 @@
 package application;
 
-import model.BusinessEntry;
-import model.Entry;
-import model.EntryType;
-import model.PersonalEntry;
+import model.*;
 import service.PhoneBookService;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class PhoneBookApplication {
@@ -111,11 +109,9 @@ public class PhoneBookApplication {
         System.out.print("$> ");
         var family = this.scanner.nextLine();
 
-        System.out.println("Enter phone number:");
-        System.out.print("$> ");
-        var phone = this.scanner.nextLine();
+        var phones = getPhoneList();
 
-        this.phoneBookService.appendPersonal(name, family, phone);
+        this.phoneBookService.appendPersonal(name, family, phones);
     }
 
     private void addBusinessContactEntry() {
@@ -123,15 +119,13 @@ public class PhoneBookApplication {
         System.out.print("$> ");
         var name = this.scanner.nextLine();
 
-        System.out.println("Enter phone number:");
+        System.out.println("Enter website:");
         System.out.print("$> ");
-        var phone = this.scanner.nextLine();
+        var website = this.scanner.nextLine();
 
-        System.out.println("Enter fax number:");
-        System.out.print("$> ");
-        var fax = this.scanner.nextLine();
+        var phones = getPhoneList();
 
-        this.phoneBookService.appendBusiness(name, phone, fax);
+        this.phoneBookService.appendBusiness(name, website, phones);
     }
 
     private void showAllContactEntries() {
@@ -201,11 +195,9 @@ public class PhoneBookApplication {
         System.out.print("$> ");
         var family = this.scanner.nextLine();
 
-        System.out.printf("Enter phone number: (%s)%n", entry.getPhone());
-        System.out.print("$> ");
-        var phone = this.scanner.nextLine();
+        var phones = getPhoneList();
 
-        this.phoneBookService.editPersonal(entry.getId(), name, family, phone);
+        this.phoneBookService.editPersonal(entry.getId(), name, family, phones);
     }
 
     private void editBusinessContactEntry(BusinessEntry entry) {
@@ -213,15 +205,13 @@ public class PhoneBookApplication {
         System.out.print("$> ");
         var name = this.scanner.nextLine();
 
-        System.out.printf("Enter phone number: (%s)%n", entry.getPhone());
+        System.out.printf("Enter website: (%s)%n", entry.getWebsite());
         System.out.print("$> ");
-        var phone = this.scanner.nextLine();
+        var website = this.scanner.nextLine();
 
-        System.out.printf("Enter fax number: (%s)%n", entry.getFax());
-        System.out.print("$> ");
-        var fax = this.scanner.nextLine();
+        var phones = getPhoneList();
 
-        this.phoneBookService.editBusiness(entry.getId(), name, phone, fax);
+        this.phoneBookService.editBusiness(entry.getId(), name, website, phones);
     }
 
     private void removeContactEntry() {
@@ -254,5 +244,58 @@ public class PhoneBookApplication {
             System.out.println("Invalid Id.");
         }
         return null;
+    }
+
+    private PhoneType getPhoneType() {
+        while (true) {
+            System.out.println("Please enter type of phone:");
+            System.out.println(" - m        Mobile");
+            System.out.println(" - h        Home");
+            System.out.println(" - w        Work");
+            System.out.println(" - f        Fax");
+            System.out.print("$> ");
+
+            String command = this.scanner.nextLine();
+
+            switch (command) {
+                case "m" -> {
+                    return PhoneType.MOBILE;
+                }
+                case "h" -> {
+                    return PhoneType.HOME;
+                }
+                case "w" -> {
+                    return PhoneType.WORK;
+                }
+                case "f" -> {
+                    return PhoneType.FAX;
+                }
+                default -> System.out.println("Invalid command, try again.");
+            }
+        }
+    }
+
+    private ArrayList<Phone> getPhoneList() {
+        var phoneList = new ArrayList<Phone>();
+
+        while (true) {
+            var phoneType = getPhoneType();
+
+            System.out.println("Please phone number:");
+            System.out.print("$> ");
+            var phoneNumber = this.scanner.nextLine();
+
+            phoneList.add(new Phone(phoneType, phoneNumber));
+
+            System.out.println("Add more? (y/n)");
+            System.out.print("$> ");
+            var answer = this.scanner.nextLine();
+
+            if (!answer.equals("y")) {
+                break;
+            }
+        }
+
+        return phoneList;
     }
 }

@@ -2,29 +2,33 @@ package model;
 
 import utils.WordUtils;
 
+import java.util.ArrayList;
+
 public abstract class Entry {
     private static int nextId = 0;
 
     private final int id;
     private String name;
-    private String phone;
+    private ArrayList<Phone> phones;
 
     private final EntryType type;
 
-    public Entry(String name, String phone, EntryType type) {
+    public Entry(String name, ArrayList<Phone> phones, EntryType type) {
         this.id = ++nextId;
         this.setName(name);
-        this.setPhone(phone);
+        this.setPhones(phones);
         this.type = type;
     }
 
     @Override
     abstract public String toString();
 
-    abstract public boolean isContained(String str);
+    public boolean isContained(String str) {
+        return this.toString().toLowerCase().contains(str.toLowerCase());
+    }
 
     public int getId() {
-        return id;
+        return this.id;
     }
 
     public void setName(String name) {
@@ -32,18 +36,28 @@ public abstract class Entry {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setPhones(ArrayList<Phone> phones) {
+        this.phones = phones;
     }
 
-    public String getPhone() {
-        return phone;
+    public ArrayList<Phone> getPhones() {
+        return this.phones;
     }
 
     public EntryType getType() {
-        return type;
+        return this.type;
+    }
+
+    public String toStringPhones() {
+        if (this.phones == null)
+            return "Empty";
+        var str = new StringBuilder();
+        for (var phone : this.phones) {
+            str.append(String.format(" - %s\n", phone));
+        }
+        return str.toString();
     }
 }

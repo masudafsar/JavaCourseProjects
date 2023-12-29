@@ -34,6 +34,12 @@ public class PhoneBookApplication {
                 case "s":
                     this.searchInEntries();
                     break;
+                case "e":
+                    this.editEntry();
+                    break;
+                case "r":
+                    this.removeEntry();
+                    break;
                 default:
                     System.out.println("Invalid command, try again.");
                     break;
@@ -50,6 +56,8 @@ public class PhoneBookApplication {
         System.out.println(" - a        Add new entry");
         System.out.println(" - l        List of all entries");
         System.out.println(" - s        Search in entries");
+        System.out.println(" - e        Edit entry by id");
+        System.out.println(" - r        Remove entry by id");
         System.out.println(" - q        Quit");
         System.out.print("$> ");
 
@@ -132,7 +140,7 @@ public class PhoneBookApplication {
             return;
         }
         System.out.println("\n----- List of entries -----");
-        for (Entry entry : this.phoneBookService.getEntries()) {
+        for (Entry entry : this.phoneBookService.getEntries().values()) {
             System.out.println(entry);
             System.out.println("---------------------------");
         }
@@ -153,9 +161,45 @@ public class PhoneBookApplication {
             return;
         }
         System.out.println("\n----- Filtered entries -----");
-        for (Entry entry : filteredEntries) {
+        for (Entry entry : filteredEntries.values()) {
             System.out.println(entry);
             System.out.println("---------------------------");
         }
+    }
+
+    private void editEntry() {
+        getEntryById();
+    }
+
+    private void removeEntry() {
+        var entry = getEntryById();
+        if (entry == null) return;
+
+        System.out.println(entry);
+        System.out.println("Are you sure? (y/n)");
+
+        var answer = this.scanner.nextLine();
+
+        if (answer.equals("y")) {
+            this.phoneBookService.removeEntry(entry.getId());
+            System.out.println("Removed successfully.");
+        }
+    }
+
+    private Entry getEntryById() {
+        System.out.println("Enter entry's id:");
+        System.out.print("$> ");
+        var id = this.scanner.nextLine();
+
+        try {
+            var entry = this.phoneBookService.findById(Integer.parseInt(id));
+            if (entry == null) {
+                System.out.println("Not found any entry.");
+            }
+            return entry;
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid Id.");
+        }
+        return null;
     }
 }

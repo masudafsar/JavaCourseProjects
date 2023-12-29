@@ -5,7 +5,7 @@ import utils.WordUtils;
 public abstract class Entry {
     private static int nextId = 0;
 
-    private int id;
+    private final int id;
     private String name;
     private String phone;
 

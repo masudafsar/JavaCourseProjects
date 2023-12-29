@@ -26,19 +26,19 @@ public class PhoneBookApplication {
                 case "q":
                     break mainLoop;
                 case "a":
-                    this.addContactEntry();
+                    this.addContact();
                     break;
                 case "l":
                     this.showAllContactEntries();
                     break;
                 case "s":
-                    this.searchInContactEntries();
+                    this.searchInContact();
                     break;
                 case "e":
-                    this.editContactEntry();
+                    this.editContact();
                     break;
                 case "r":
-                    this.removeContactEntry();
+                    this.removeContact();
                     break;
                 default:
                     System.out.println("Invalid command, try again.");
@@ -53,29 +53,29 @@ public class PhoneBookApplication {
     private String getCommand() {
         System.out.println("\nPlease enter a command to continue:");
         System.out.println("valid commands:");
-        System.out.println(" - a        Add new entry");
-        System.out.println(" - l        List of all entries");
-        System.out.println(" - s        Search in entries");
-        System.out.println(" - e        Edit entry by id");
-        System.out.println(" - r        Remove entry by id");
+        System.out.println(" - a        Add new contact");
+        System.out.println(" - l        List of all contacts");
+        System.out.println(" - s        Search in contacts");
+        System.out.println(" - e        Edit contact by id");
+        System.out.println(" - r        Remove contact by id");
         System.out.println(" - q        Quit");
         System.out.print("$> ");
 
         return this.scanner.nextLine();
     }
 
-    private void addContactEntry() {
-        System.out.println("------ Add new entry ------");
+    private void addContact() {
+        System.out.println("------ Add new contact ------");
         var type = this.getContactType();
         if (type == null) return; // exit from adding contact
 
         switch (type) {
-            case PERSONAL -> this.addPersonalContactEntry();
-            case BUSINESS -> this.addBusinessContactEntry();
+            case PERSONAL -> this.addPersonalContact();
+            case BUSINESS -> this.addBusinessContact();
         }
     }
 
-    private EntryType getContactType() {
+    private ContactType getContactType() {
         while (true) {
             System.out.println("Please enter type of contact type:");
             System.out.println(" - p        Personal type");
@@ -87,10 +87,10 @@ public class PhoneBookApplication {
 
             switch (command) {
                 case "p" -> {
-                    return EntryType.PERSONAL;
+                    return ContactType.PERSONAL;
                 }
                 case "b" -> {
-                    return EntryType.BUSINESS;
+                    return ContactType.BUSINESS;
                 }
                 case "x" -> {
                     return null;
@@ -100,7 +100,7 @@ public class PhoneBookApplication {
         }
     }
 
-    private void addPersonalContactEntry() {
+    private void addPersonalContact() {
         System.out.println("Enter name:");
         System.out.print("$> ");
         var name = this.scanner.nextLine();
@@ -109,12 +109,12 @@ public class PhoneBookApplication {
         System.out.print("$> ");
         var family = this.scanner.nextLine();
 
-        var phones = getPhoneList();
+        var entries = getEntriesList();
 
-        this.phoneBookService.appendPersonal(name, family, phones);
+        this.phoneBookService.appendPersonal(name, family, entries);
     }
 
-    private void addBusinessContactEntry() {
+    private void addBusinessContact() {
         System.out.println("Enter name:");
         System.out.print("$> ");
         var name = this.scanner.nextLine();
@@ -123,130 +123,130 @@ public class PhoneBookApplication {
         System.out.print("$> ");
         var website = this.scanner.nextLine();
 
-        var phones = getPhoneList();
+        var entries = getEntriesList();
 
-        this.phoneBookService.appendBusiness(name, website, phones);
+        this.phoneBookService.appendBusiness(name, website, entries);
     }
 
     private void showAllContactEntries() {
-        if (this.phoneBookService.getEntries().isEmpty()) {
+        if (this.phoneBookService.getContacts().isEmpty()) {
             System.out.println("---------------------------");
             System.out.println("-   PhoneBook is empty!   -");
             System.out.println("---------------------------");
             return;
         }
-        System.out.println("\n----- List of entries -----");
-        for (Entry entry : this.phoneBookService.getEntries().values()) {
-            System.out.println(entry);
+        System.out.println("\n----- List of contacts -----");
+        for (Contact contact : this.phoneBookService.getContacts().values()) {
+            System.out.println(contact);
             System.out.println("---------------------------");
         }
     }
 
-    private void searchInContactEntries() {
-        System.out.println("\n----- Search in entries -----");
+    private void searchInContact() {
+        System.out.println("\n----- Search in contacts -----");
         System.out.println("Enter query:");
         System.out.print("$> ");
         var query = this.scanner.nextLine();
 
-        var filteredEntries = this.phoneBookService.filterEntries(query);
+        var filteredContacts = this.phoneBookService.filterContacts(query);
 
-        if (filteredEntries.isEmpty()) {
+        if (filteredContacts.isEmpty()) {
             System.out.println("---------------------------");
-            System.out.println("-   Not found any entry   -");
+            System.out.println("-   Not found any contact  -");
             System.out.println("---------------------------");
             return;
         }
-        System.out.println("\n----- Filtered entries -----");
-        for (Entry entry : filteredEntries.values()) {
-            System.out.println(entry);
+        System.out.println("\n----- Filtered contacts -----");
+        for (Contact contact : filteredContacts.values()) {
+            System.out.println(contact);
             System.out.println("---------------------------");
         }
     }
 
-    private void editContactEntry() {
-        var entry = getContactEntryById();
-        if (entry == null) return;
+    private void editContact() {
+        var contact = getContactById();
+        if (contact == null) return;
 
-        System.out.println(entry);
+        System.out.println(contact);
         System.out.println("Are you sure? (y/n)");
 
         var answer = this.scanner.nextLine();
 
         if (answer.equals("y")) {
-            System.out.println("------ Edit entry ------");
+            System.out.println("------ Edit contact ------");
             var type = this.getContactType();
             if (type == null) return; // exit from editing contact
 
             switch (type) {
-                case PERSONAL -> this.editPersonalContactEntry((PersonalEntry) entry);
-                case BUSINESS -> this.editBusinessContactEntry((BusinessEntry) entry);
+                case PERSONAL -> this.editPersonalContact((PersonalContact) contact);
+                case BUSINESS -> this.editBusinessContact((BusinessContact) contact);
             }
 
             System.out.println("Updated successfully.");
         }
     }
 
-    private void editPersonalContactEntry(PersonalEntry entry) {
-        System.out.printf("Enter name: (%s)%n", entry.getName());
+    private void editPersonalContact(PersonalContact contact) {
+        System.out.printf("Enter name: (%s)%n", contact.getName());
         System.out.print("$> ");
         var name = this.scanner.nextLine();
 
-        System.out.printf("Enter family: (%s)%n", entry.getFamily());
+        System.out.printf("Enter family: (%s)%n", contact.getFamily());
         System.out.print("$> ");
         var family = this.scanner.nextLine();
 
-        var phones = getPhoneList();
+        var entries = getEntriesList();
 
-        this.phoneBookService.editPersonal(entry.getId(), name, family, phones);
+        this.phoneBookService.editPersonal(contact.getId(), name, family, entries);
     }
 
-    private void editBusinessContactEntry(BusinessEntry entry) {
-        System.out.printf("Enter name: (%s)%n", entry.getName());
+    private void editBusinessContact(BusinessContact contact) {
+        System.out.printf("Enter name: (%s)%n", contact.getName());
         System.out.print("$> ");
         var name = this.scanner.nextLine();
 
-        System.out.printf("Enter website: (%s)%n", entry.getWebsite());
+        System.out.printf("Enter website: (%s)%n", contact.getWebsite());
         System.out.print("$> ");
         var website = this.scanner.nextLine();
 
-        var phones = getPhoneList();
+        var entries = getEntriesList();
 
-        this.phoneBookService.editBusiness(entry.getId(), name, website, phones);
+        this.phoneBookService.editBusiness(contact.getId(), name, website, entries);
     }
 
-    private void removeContactEntry() {
-        var entry = getContactEntryById();
-        if (entry == null) return;
+    private void removeContact() {
+        var contact = getContactById();
+        if (contact == null) return;
 
-        System.out.println(entry);
+        System.out.println(contact);
         System.out.println("Are you sure? (y/n)");
 
         var answer = this.scanner.nextLine();
 
         if (answer.equals("y")) {
-            this.phoneBookService.remove(entry.getId());
+            this.phoneBookService.remove(contact.getId());
             System.out.println("Removed successfully.");
         }
     }
 
-    private Entry getContactEntryById() {
-        System.out.println("Enter entry's id:");
+    private Contact getContactById() {
+        System.out.println("Enter contact's id:");
         System.out.print("$> ");
         var id = this.scanner.nextLine();
 
         try {
-            var entry = this.phoneBookService.findById(Integer.parseInt(id));
-            if (entry == null) {
-                System.out.println("Not found any entry.");
+            var contact = this.phoneBookService.findById(Integer.parseInt(id));
+            if (contact == null) {
+                System.out.println("Not found any contact.");
             }
-            return entry;
+            return contact;
         } catch (NumberFormatException e) {
             System.out.println("Invalid Id.");
         }
         return null;
     }
 
-    private PhoneType getPhoneType() {
+    private EntryType getEntryType() {
         while (true) {
             System.out.println("Please enter type of phone:");
             System.out.println(" - m        Mobile");
@@ -259,33 +259,33 @@ public class PhoneBookApplication {
 
             switch (command) {
                 case "m" -> {
-                    return PhoneType.MOBILE;
+                    return EntryType.MOBILE;
                 }
                 case "h" -> {
-                    return PhoneType.HOME;
+                    return EntryType.HOME;
                 }
                 case "w" -> {
-                    return PhoneType.WORK;
+                    return EntryType.WORK;
                 }
                 case "f" -> {
-                    return PhoneType.FAX;
+                    return EntryType.FAX;
                 }
                 default -> System.out.println("Invalid command, try again.");
             }
         }
     }
 
-    private ArrayList<Phone> getPhoneList() {
-        var phoneList = new ArrayList<Phone>();
+    private ArrayList<Entry> getEntriesList() {
+        var entries = new ArrayList<Entry>();
 
         while (true) {
-            var phoneType = getPhoneType();
+            var entryType = getEntryType();
 
             System.out.println("Please phone number:");
             System.out.print("$> ");
-            var phoneNumber = this.scanner.nextLine();
+            var entryValue = this.scanner.nextLine();
 
-            phoneList.add(new Phone(phoneType, phoneNumber));
+            entries.add(new Entry(entryType, entryValue));
 
             System.out.println("Add more? (y/n)");
             System.out.print("$> ");
@@ -296,6 +296,6 @@ public class PhoneBookApplication {
             }
         }
 
-        return phoneList;
+        return entries;
     }
 }

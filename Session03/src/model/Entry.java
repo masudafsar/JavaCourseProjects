@@ -1,63 +1,32 @@
 package model;
 
-import utils.WordUtils;
+public class Entry {
+    private EntryType type;
+    private String value;
 
-import java.util.ArrayList;
-
-public abstract class Entry {
-    private static int nextId = 0;
-
-    private final int id;
-    private String name;
-    private ArrayList<Phone> phones;
-
-    private final EntryType type;
-
-    public Entry(String name, ArrayList<Phone> phones, EntryType type) {
-        this.id = ++nextId;
-        this.setName(name);
-        this.setPhones(phones);
-        this.type = type;
+    public Entry(EntryType type, String value) {
+        this.setType(type);
+        this.setValue(value);
     }
 
     @Override
-    abstract public String toString();
-
-    public boolean isContained(String str) {
-        return this.toString().toLowerCase().contains(str.toLowerCase());
-    }
-
-    public int getId() {
-        return this.id;
-    }
-
-    public void setName(String name) {
-        this.name = WordUtils.convertToTitleCase(name);
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public void setPhones(ArrayList<Phone> phones) {
-        this.phones = phones;
-    }
-
-    public ArrayList<Phone> getPhones() {
-        return this.phones;
+    public String toString() {
+        return String.format("%s \t\t %s", this.getValue(), this.getType());
     }
 
     public EntryType getType() {
         return this.type;
     }
 
-    public String toStringPhones() {
-        if (this.phones == null)
-            return "Empty";
-        var str = new StringBuilder();
-        for (var phone : this.phones) {
-            str.append(String.format(" - %s\n", phone));
-        }
-        return str.toString();
+    private void setType(EntryType type) {
+        this.type = type;
+    }
+
+    public String getValue() {
+        return this.value;
+    }
+
+    private void setValue(String value) {
+        this.value = value;
     }
 }

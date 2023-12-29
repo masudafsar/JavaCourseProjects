@@ -2,11 +2,11 @@ package model;
 
 import java.util.ArrayList;
 
-public class BusinessEntry extends Entry {
+public class BusinessContact extends Contact {
     private String website;
 
-    public BusinessEntry(String name, String website, ArrayList<Phone> phones) {
-        super(name, phones, EntryType.BUSINESS);
+    public BusinessContact(String name, String website, ArrayList<Entry> phones) {
+        super(name, phones, ContactType.BUSINESS);
         this.setWebsite(website);
     }
 

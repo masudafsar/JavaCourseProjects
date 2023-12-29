@@ -4,11 +4,11 @@ import utils.WordUtils;
 
 import java.util.ArrayList;
 
-public class PersonalEntry extends Entry {
+public class PersonalContact extends Contact {
     private String family;
 
-    public PersonalEntry(String name, String family, ArrayList<Phone> phones) {
-        super(name, phones, EntryType.PERSONAL);
+    public PersonalContact(String name, String family, ArrayList<Entry> phones) {
+        super(name, phones, ContactType.PERSONAL);
         this.setFamily(family);
     }
 

@@ -1,6 +1,8 @@
 package model;
 
 public enum EntryType {
-    PERSONAL,
-    BUSINESS,
+    MOBILE,
+    HOME,
+    WORK,
+    FAX,
 }

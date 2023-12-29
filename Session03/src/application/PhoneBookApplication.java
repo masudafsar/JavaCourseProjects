@@ -1,7 +1,9 @@
 package application;
 
+import model.BusinessEntry;
 import model.Entry;
 import model.EntryType;
+import model.PersonalEntry;
 import service.PhoneBookService;
 
 import java.util.Scanner;
@@ -29,16 +31,16 @@ public class PhoneBookApplication {
                     this.addContactEntry();
                     break;
                 case "l":
-                    this.showAllEntries();
+                    this.showAllContactEntries();
                     break;
                 case "s":
-                    this.searchInEntries();
+                    this.searchInContactEntries();
                     break;
                 case "e":
-                    this.editEntry();
+                    this.editContactEntry();
                     break;
                 case "r":
-                    this.removeEntry();
+                    this.removeContactEntry();
                     break;
                 default:
                     System.out.println("Invalid command, try again.");
@@ -80,7 +82,7 @@ public class PhoneBookApplication {
             System.out.println("Please enter type of contact type:");
             System.out.println(" - p        Personal type");
             System.out.println(" - b        Business type");
-            System.out.println(" - x        Exit from contact adding.");
+            System.out.println(" - x        Back to application menu.");
             System.out.print("$> ");
 
             String command = this.scanner.nextLine();
@@ -132,7 +134,7 @@ public class PhoneBookApplication {
         this.phoneBookService.appendBusiness(name, phone, fax);
     }
 
-    private void showAllEntries() {
+    private void showAllContactEntries() {
         if (this.phoneBookService.getEntries().isEmpty()) {
             System.out.println("---------------------------");
             System.out.println("-   PhoneBook is empty!   -");
@@ -146,7 +148,7 @@ public class PhoneBookApplication {
         }
     }
 
-    private void searchInEntries() {
+    private void searchInContactEntries() {
         System.out.println("\n----- Search in entries -----");
         System.out.println("Enter query:");
         System.out.print("$> ");
@@ -167,12 +169,8 @@ public class PhoneBookApplication {
         }
     }
 
-    private void editEntry() {
-        getEntryById();
-    }
-
-    private void removeEntry() {
-        var entry = getEntryById();
+    private void editContactEntry() {
+        var entry = getContactEntryById();
         if (entry == null) return;
 
         System.out.println(entry);
@@ -181,12 +179,67 @@ public class PhoneBookApplication {
         var answer = this.scanner.nextLine();
 
         if (answer.equals("y")) {
-            this.phoneBookService.removeEntry(entry.getId());
+            System.out.println("------ Edit entry ------");
+            var type = this.getContactType();
+            if (type == null) return; // exit from editing contact
+
+            switch (type) {
+                case PERSONAL -> this.editPersonalContactEntry((PersonalEntry) entry);
+                case BUSINESS -> this.editBusinessContactEntry((BusinessEntry) entry);
+            }
+
+            System.out.println("Updated successfully.");
+        }
+    }
+
+    private void editPersonalContactEntry(PersonalEntry entry) {
+        System.out.printf("Enter name: (%s)%n", entry.getName());
+        System.out.print("$> ");
+        var name = this.scanner.nextLine();
+
+        System.out.printf("Enter family: (%s)%n", entry.getFamily());
+        System.out.print("$> ");
+        var family = this.scanner.nextLine();
+
+        System.out.printf("Enter phone number: (%s)%n", entry.getPhone());
+        System.out.print("$> ");
+        var phone = this.scanner.nextLine();
+
+        this.phoneBookService.editPersonal(entry.getId(), name, family, phone);
+    }
+
+    private void editBusinessContactEntry(BusinessEntry entry) {
+        System.out.printf("Enter name: (%s)%n", entry.getName());
+        System.out.print("$> ");
+        var name = this.scanner.nextLine();
+
+        System.out.printf("Enter phone number: (%s)%n", entry.getPhone());
+        System.out.print("$> ");
+        var phone = this.scanner.nextLine();
+
+        System.out.printf("Enter fax number: (%s)%n", entry.getFax());
+        System.out.print("$> ");
+        var fax = this.scanner.nextLine();
+
+        this.phoneBookService.editBusiness(entry.getId(), name, phone, fax);
+    }
+
+    private void removeContactEntry() {
+        var entry = getContactEntryById();
+        if (entry == null) return;
+
+        System.out.println(entry);
+        System.out.println("Are you sure? (y/n)");
+
+        var answer = this.scanner.nextLine();
+
+        if (answer.equals("y")) {
+            this.phoneBookService.remove(entry.getId());
             System.out.println("Removed successfully.");
         }
     }
 
-    private Entry getEntryById() {
+    private Entry getContactEntryById() {
         System.out.println("Enter entry's id:");
         System.out.print("$> ");
         var id = this.scanner.nextLine();

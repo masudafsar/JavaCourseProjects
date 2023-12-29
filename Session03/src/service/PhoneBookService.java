@@ -51,7 +51,21 @@ public class PhoneBookService {
         return this.entries.get(id);
     }
 
-    public void removeEntry(int id) {
+    public void editPersonal(int id, String name, String family, String phone) {
+        var entry = (PersonalEntry)this.entries.get(id);
+        entry.setName(name);
+        entry.setFamily(family);
+        entry.setPhone(phone);
+    }
+
+    public void editBusiness(int id, String name, String phone, String fax) {
+        var entry = (BusinessEntry)this.entries.get(id);
+        entry.setName(name);
+        entry.setPhone(phone);
+        entry.setFax(fax);
+    }
+
+    public void remove(int id) {
         this.entries.remove(id);
     }
 

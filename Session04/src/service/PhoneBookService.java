@@ -50,7 +50,7 @@ public class PhoneBookService {
         var filtered = this.contacts
                 .entrySet()
                 .stream()
-                .filter(entry -> entry.getValue().isContained(query))
+                .filter(entry -> entry.getValue().searchBy(query))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 
         return new HashMap<>(filtered);

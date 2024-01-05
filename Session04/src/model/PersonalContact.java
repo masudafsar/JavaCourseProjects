@@ -20,9 +20,9 @@ public class PersonalContact extends Contact {
     }
 
     @Override
-    public boolean isContained(String str) {
-        var result = super.isContained(str);
-        result = result || this.getFamily().toLowerCase().contains(str.toLowerCase());
+    public boolean searchBy(String query) {
+        var result = super.searchBy(query);
+        result = result || this.getFamily().toLowerCase().contains(query.toLowerCase());
         return result;
     }
 

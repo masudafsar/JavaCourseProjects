@@ -4,7 +4,7 @@ import utils.WordUtils;
 
 import java.util.ArrayList;
 
-public abstract class Contact {
+public abstract class Contact implements Searchable {
     private static int nextId = 0;
     private final int id;
     private final ContactType type;
@@ -21,12 +21,13 @@ public abstract class Contact {
     @Override
     abstract public String toString();
 
-    public boolean isContained(String str) {
-        var result = this.getName().toLowerCase().contains(str.toLowerCase());
+    @Override
+    public boolean searchBy(String query) {
+        var result = this.getName().toLowerCase().contains(query.toLowerCase());
 
         for (var phone : this.phones) {
             if (result) break;
-            result = phone.getValue().toLowerCase().contains(str.toLowerCase());
+            result = phone.getValue().toLowerCase().contains(query.toLowerCase());
         }
 
         return result;
@@ -46,10 +47,6 @@ public abstract class Contact {
 
     public void setPhones(ArrayList<Entry> phones) {
         this.phones = phones;
-    }
-
-    public ArrayList<Entry> getPhones() {
-        return this.phones;
     }
 
     public ContactType getType() {

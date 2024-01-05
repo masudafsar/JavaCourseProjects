@@ -18,9 +18,9 @@ public class BusinessContact extends Contact {
     }
 
     @Override
-    public boolean isContained(String str) {
-        var result = super.isContained(str);
-        result = result || this.getWebsite().toLowerCase().contains(str.toLowerCase());
+    public boolean searchBy(String searchBy) {
+        var result = super.searchBy(searchBy);
+        result = result || this.getWebsite().toLowerCase().contains(searchBy.toLowerCase());
         return result;
     }
 

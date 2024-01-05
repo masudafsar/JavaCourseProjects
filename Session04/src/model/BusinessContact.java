@@ -17,6 +17,13 @@ public class BusinessContact extends Contact {
                 this.toStringPhones();
     }
 
+    @Override
+    public boolean isContained(String str) {
+        var result = super.isContained(str);
+        result = result || this.getWebsite().toLowerCase().contains(str.toLowerCase());
+        return result;
+    }
+
     public String getWebsite() {
         return this.website;
     }

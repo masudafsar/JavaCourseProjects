@@ -19,6 +19,13 @@ public class PersonalContact extends Contact {
                 this.toStringPhones();
     }
 
+    @Override
+    public boolean isContained(String str) {
+        var result = super.isContained(str);
+        result = result || this.getFamily().toLowerCase().contains(str.toLowerCase());
+        return result;
+    }
+
     public String getFamily() {
         return family;
     }

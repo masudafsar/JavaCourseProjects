@@ -96,9 +96,7 @@ public class ConsoleUtils implements AutoCloseable {
     }
 
     public void printCommandList(Map<String, String> commands) {
-        for (var command : commands.entrySet()) {
-            System.out.printf("  - %s \t\t %s%n", greenColorText(command.getKey()), command.getValue());
-        }
+        commands.forEach((key, value) -> System.out.printf("  - %s \t\t %s%n", greenColorText(key), value));
     }
 
     public String getCommand(String prompt, Map<String, String> commands) {

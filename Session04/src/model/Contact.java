@@ -56,10 +56,7 @@ public abstract class Contact implements Searchable {
     public String toStringPhones() {
         if (this.phones == null || this.phones.isEmpty())
             return "Empty";
-        var str = new StringBuilder();
-        for (var phone : this.phones) {
-            str.append(String.format(" - %s\n", phone));
-        }
-        return str.toString();
+        var phoneStrArray = this.phones.stream().map(phone -> String.format(" - %s", phone)).toList();
+        return String.join("\n", phoneStrArray);
     }
 }

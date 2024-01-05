@@ -104,10 +104,10 @@ public class PhoneBookApplication implements AutoCloseable {
             return;
         }
         this.consoleUtils.printSection("List of contacts");
-        for (var contact : this.phoneBookService.getContacts().values()) {
+        this.phoneBookService.getContacts().values().forEach(contact -> {
             System.out.println(contact);
             this.consoleUtils.horizontalLine();
-        }
+        });
     }
 
     private void searchInContact() {
@@ -121,10 +121,10 @@ public class PhoneBookApplication implements AutoCloseable {
             return;
         }
         this.consoleUtils.printSection("Filtered contacts");
-        for (Contact contact : filteredContacts.values()) {
+        filteredContacts.values().forEach(contact -> {
             System.out.println(contact);
             this.consoleUtils.horizontalLine();
-        }
+        });
     }
 
     private void editContact() {

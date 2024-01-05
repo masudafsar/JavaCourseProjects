@@ -21,6 +21,11 @@ public class LegalCustomerInfo extends CustomerInfo {
         return null;
     }
 
+    @Override
+    public boolean searchBy(String query) {
+        return super.searchBy(query);
+    }
+
     public String getTitle() {
         return title;
     }

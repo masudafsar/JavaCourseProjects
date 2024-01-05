@@ -1,5 +1,6 @@
 package applications;
 
+import interfaces.Runnable;
 import utils.ConsoleUtils;
 
 public class CustomerManagementApplication implements AutoCloseable, Runnable {

@@ -23,6 +23,11 @@ public class IndividualCustomerInfo extends CustomerInfo {
         return null;
     }
 
+    @Override
+    public boolean searchBy(String query) {
+        return super.searchBy(query);
+    }
+
     public String getFirstName() {
         return firstName;
     }

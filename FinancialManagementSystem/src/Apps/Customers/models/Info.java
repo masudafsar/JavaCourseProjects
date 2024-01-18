@@ -1,12 +1,20 @@
 package Apps.Customers.models;
 
+import interfaces.Printable;
+import interfaces.Searchable;
 import utils.WordTransformer;
 
-public abstract class Info {
+public abstract class Info implements Printable, Searchable {
     private String address;
     private String country;
     private String city;
     private String postalCode;
+
+    @Override
+    public abstract String toString();
+
+    @Override
+    public abstract boolean searchBy(String query);
 
     public String getAddress() {
         return address;

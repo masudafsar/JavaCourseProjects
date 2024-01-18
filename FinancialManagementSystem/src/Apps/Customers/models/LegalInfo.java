@@ -6,6 +6,16 @@ public class LegalInfo extends Info {
     private String title;
     private String registerId;
 
+    @Override
+    public String toString() {
+        return null;
+    }
+
+    @Override
+    public boolean searchBy(String query) {
+        return false;
+    }
+
     public String getTitle() {
         return title;
     }

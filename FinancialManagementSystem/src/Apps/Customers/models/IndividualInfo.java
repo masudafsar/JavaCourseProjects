@@ -8,6 +8,16 @@ public class IndividualInfo extends Info {
     private String nationalId;
     private Gender gender;
 
+    @Override
+    public String toString() {
+        return null;
+    }
+
+    @Override
+    public boolean searchBy(String query) {
+        return false;
+    }
+
     public String getFirstName() {
         return firstName;
     }

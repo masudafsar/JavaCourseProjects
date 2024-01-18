@@ -6,6 +6,7 @@ public class IndividualInfo extends Info {
     private String firstName;
     private String lastName;
     private String nationalId;
+    private Gender gender;
 
     public String getFirstName() {
         return firstName;
@@ -29,5 +30,13 @@ public class IndividualInfo extends Info {
 
     public void setNationalId(String nationalId) {
         this.nationalId = nationalId;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender != null ? gender : Gender.OTHER;
     }
 }

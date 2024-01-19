@@ -1,8 +1,8 @@
 package Apps.Customers.models;
 
-public class IndividualEntity extends Entity {
-    public IndividualEntity() {
-        super(new IndividualInfo());
+public class IndividualEntity extends Entity<IndividualInfo> {
+    public IndividualEntity(IndividualInfo info) {
+        super(info);
     }
 
     @Override

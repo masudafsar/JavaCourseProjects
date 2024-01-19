@@ -1,8 +1,8 @@
 package Apps.Customers.models;
 
-public class LegalEntity extends Entity {
-    public LegalEntity() {
-        super(new LegalInfo());
+public class LegalEntity extends Entity<LegalInfo> {
+    public LegalEntity(LegalInfo info) {
+        super(info);
     }
 
     @Override

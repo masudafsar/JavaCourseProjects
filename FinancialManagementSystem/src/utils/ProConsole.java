@@ -19,7 +19,7 @@ public class ProConsole implements AutoCloseable {
     }
 
     @Override
-    public void close() throws Exception {
+    public void close() {
         scanner.close();
     }
 
